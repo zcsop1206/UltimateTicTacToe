@@ -1,5 +1,5 @@
-from agent.q_agent import QAgent
-from game.tictactoe import TicTacToe
+from agent import QAgent
+from game import TicTacToe
 import time
 
 def train():
