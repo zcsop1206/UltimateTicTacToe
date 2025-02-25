@@ -1,6 +1,6 @@
 import numpy as np
 import random
-from neural_network import NeuralNetwork
+from agent import NeuralNetwork
 
 class QAgent:
     def __init__(self, epsilon=0.1, alpha=0.5, gamma=0.9, input_size=9, output_size=9, model=None):
