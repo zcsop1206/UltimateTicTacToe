@@ -1,5 +1,6 @@
 import numpy as np
-from neural_network import NeuralNetwork
+import random
+from .neural_network import NeuralNetwork
 
 class QAgent:
     def __init__(self, epsilon=0.1, alpha=0.5, gamma=0.9, input_size=9, output_size=9, model=None):
@@ -10,8 +11,8 @@ class QAgent:
 
     def act(self, state, legal_actions):
         # Epsilon-greedy strategy
-        if np.random.random() < self.epsilon:
-            return np.random.choice(legal_actions)
+        if random.random() < self.epsilon:
+            return random.choice(legal_actions)
         else:
             q_values = self.model.forward(np.array([state]))
             q_values = q_values[0]  # Flatten the output
@@ -34,10 +35,6 @@ class QAgent:
         target_q_values[0, action] = target
         self.model.train(state, target_q_values)
 
-    def replay(self):
-        # Placeholder for experience replay if needed
-        pass
-
     def load_model(self, model_path):
         # Load the model parameters (weights) from numpy files
         self.model.W1 = np.load(model_path + '_W1.npy')
@@ -51,3 +48,7 @@ class QAgent:
         np.save(model_path + '_b1.npy', self.model.b1)
         np.save(model_path + '_W2.npy', self.model.W2)
         np.save(model_path + '_b2.npy', self.model.b2)
+
+    def replay(self):
+        # Placeholder for experience replay if needed
+        pass
