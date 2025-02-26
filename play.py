@@ -16,7 +16,7 @@ def play_against_agent():
     model_path = 'agent_x_model.pth' if agent_marker == 'X' else 'agent_o_model.pth'
     agent.load_model(model_path)
 
-    game = UltimateTicTacToe()
+    game = TicTacToe()
 
     print(f"You are '{human_marker}' and the agent is '{agent_marker}'.")
     print("Board positions are numbered from 0 to 80 (for a 9x9 board).")
