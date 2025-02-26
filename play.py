@@ -1,11 +1,7 @@
 from agent import QAgent
-from game import TicTacToe
-from game import print_board
+from game import UltimateTicTacToe, print_board
 
 def play_against_agent():
-    agent = QAgent()
-    game = TicTacToe()
-
     # Let the human player choose their marker
     human_marker = ''
     while human_marker not in ['X', 'O']:
@@ -15,11 +11,15 @@ def play_against_agent():
     human_player = 1 if human_marker == 'X' else -1
     agent_player = -human_player
 
+    # Load the appropriate trained agent
+    agent = QAgent()
+    model_path = 'agent_x_model.pth' if agent_marker == 'X' else 'agent_o_model.pth'
+    agent.load_model(model_path)
+
+    game = UltimateTicTacToe()
+
     print(f"You are '{human_marker}' and the agent is '{agent_marker}'.")
-    print("Board positions (0-8):")
-    print("0 | 1 | 2")
-    print("3 | 4 | 5")
-    print("6 | 7 | 8")
+    print("Board positions are numbered from 0 to 80 (for a 9x9 board).")
     print("\n")
 
     while True:
@@ -28,9 +28,9 @@ def play_against_agent():
         while not done:
             if game.current_player == human_player:
                 # Human's turn
-                legal_actions = [i for i in range(9) if state[i] == 0]
+                legal_actions = game.get_legal_actions()
                 print_board(game.board)
-                print("Your turn. Choose position (0-8):")
+                print("Your turn. Choose position (0-80):")
                 action = -1
                 while action not in legal_actions:
                     try:
@@ -38,13 +38,13 @@ def play_against_agent():
                         if action not in legal_actions:
                             print("Invalid move. Choose again.")
                     except ValueError:
-                        print("Invalid input. Enter a number between 0 and 8.")
-                next_state, reward, done = game.step(action, human_player)
+                        print("Invalid input. Enter a number between 0 and 80.")
+                next_state, reward, done = game.step(action)
             else:
                 # Agent's turn
-                legal_actions = [i for i in range(9) if state[i] == 0]
+                legal_actions = game.get_legal_actions()
                 action = agent.act(state, legal_actions)
-                next_state, reward, done = game.step(action, agent_player)
+                next_state, reward, done = game.step(action)
                 print(f"Agent ('{agent_marker}') chooses position {action}.")
 
             state = next_state
