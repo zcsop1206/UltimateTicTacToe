@@ -5,7 +5,7 @@ import time
 def train():
     agent_x = QAgent()
     agent_o = QAgent()
-    game = UltimateTicTacToe()
+    game = TicTacToe()
     episodes = 10000
 
     for e in range(episodes):
