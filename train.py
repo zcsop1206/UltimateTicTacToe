@@ -17,14 +17,14 @@ def train():
         while not done:
             if game.current_player == 1:
                 # X's turn
-                legal_actions = game.get_legal_actions()
+                legal_actions = legal_actions = [i for i in range(9) if game.board[i] == 0]
                 action = agent_x.act(state, legal_actions)
                 next_state, reward, done = game.step(action)
                 total_reward_x += reward
                 agent_x.remember(state, action, reward, next_state, done)
             else:
                 # O's turn
-                legal_actions = game.get_legal_actions()
+                legal_actions = legal_actions = [i for i in range(9) if game.board[i] == 0]
                 action = agent_o.act(state, legal_actions)
                 next_state, reward, done = game.step(action)
                 total_reward_o += reward
