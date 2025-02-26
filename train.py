@@ -19,7 +19,7 @@ def train():
             agent = agent_x if current_player == 1 else agent_o
 
             # Determine the legal actions for the current player
-            legal_actions = [i for i in range(9) if game.board[i] == 0]
+            legal_actions = [i+1 for i in range(9) if game.board[i] == 0]
             action = agent.act(state, legal_actions)
             next_state, reward, done = game.step(action)
             
