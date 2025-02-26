@@ -28,7 +28,7 @@ def play_against_agent():
         while not done:
             if game.current_player == human_player:
                 # Human's turn
-                legal_actions = legal_actions = [i for i in range(9) if game.board[i] == 0]
+                legal_actions = legal_actions = [i+1 for i in range(9) if game.board[i] == 0]
                 print_board(game.board)
                 print("Your turn. Choose position (1-9):")
                 action = -1
@@ -42,7 +42,7 @@ def play_against_agent():
                 next_state, reward, done = game.step(action)
             else:
                 # Agent's turn
-                legal_actions = legal_actions = [i for i in range(9) if game.board[i] == 0]
+                legal_actions = legal_actions = [i+1 for i in range(9) if game.board[i] == 0]
                 action = agent.act(state, legal_actions)
                 next_state, reward, done = game.step(action)
                 print(f"Agent ('{agent_marker}') chooses position {action}.")
