@@ -15,31 +15,29 @@ def train():
         total_reward_o = 0
 
         while not done:
-            if game.current_player == 1:
-                # X's turn
-                legal_actions = legal_actions = [i for i in range(9) if game.board[i] == 0]
-                action = agent_x.act(state, legal_actions)
-                next_state, reward, done = game.step(action, 1)
+            current_player = game.current_player
+            agent = agent_x if current_player == 1 else agent_o
+
+            # Determine the legal actions for the current player
+            legal_actions = [i for i in range(9) if game.board[i] == 0]
+            action = agent.act(state, legal_actions)
+            next_state, reward, done = game.step(action, current_player)
+            
+            if current_player == 1:
                 total_reward_x += reward
                 agent_x.remember(state, action, reward, next_state, done)
             else:
-                # O's turn
-                legal_actions = legal_actions = [i for i in range(9) if game.board[i] == 0]
-                action = agent_o.act(state, legal_actions)
-                next_state, reward, done = game.step(action, -1)
                 total_reward_o += reward
                 agent_o.remember(state, action, reward, next_state, done)
 
             state = next_state
 
-        # Print progress every 100 episodes
+        # Print progress every 100 episodes and save models
         if e % 100 == 0:
             print(f"Episode {e}/{episodes}, Total Reward X: {total_reward_x}, Total Reward O: {total_reward_o}")
+            agent_x.save_model('agent_x_model.pth')
+            agent_o.save_model('agent_o_model.pth')
             time.sleep(1)
-
-    # Save trained models
-    agent_x.save_model('agent_x_model.pth')
-    agent_o.save_model('agent_o_model.pth')
 
 if __name__ == "__main__":
     train()
