@@ -1,5 +1,5 @@
 from agent import QAgent
-from game import UltimateTicTacToe, print_board
+from game import TicTacToe, print_board
 
 def play_against_agent():
     # Let the human player choose their marker
