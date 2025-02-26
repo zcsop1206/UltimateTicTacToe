@@ -19,14 +19,14 @@ def train():
                 # X's turn
                 legal_actions = legal_actions = [i for i in range(9) if game.board[i] == 0]
                 action = agent_x.act(state, legal_actions)
-                next_state, reward, done = game.step(action, agent_x)
+                next_state, reward, done = game.step(action, 1)
                 total_reward_x += reward
                 agent_x.remember(state, action, reward, next_state, done)
             else:
                 # O's turn
                 legal_actions = legal_actions = [i for i in range(9) if game.board[i] == 0]
                 action = agent_o.act(state, legal_actions)
-                next_state, reward, done = game.step(action, agent_o)
+                next_state, reward, done = game.step(action, -1)
                 total_reward_o += reward
                 agent_o.remember(state, action, reward, next_state, done)
 
