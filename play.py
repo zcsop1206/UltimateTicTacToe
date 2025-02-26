@@ -19,7 +19,7 @@ def play_against_agent():
     game = TicTacToe()
 
     print(f"You are '{human_marker}' and the agent is '{agent_marker}'.")
-    print("Board positions are numbered from 0 to 80 (for a 9x9 board).")
+    print("Board positions are numbered from 0 to 8 (for a 3x3 board).")
     print("\n")
 
     while True:
@@ -28,21 +28,21 @@ def play_against_agent():
         while not done:
             if game.current_player == human_player:
                 # Human's turn
-                legal_actions = legal_actions = [i for i in range(9) if game.board[i] == 0]
+                legal_actions = [i for i in range(9) if game.board[i] == 0]
                 print_board(game.board)
-                print("Your turn. Choose position (0-80):")
+                print("Your turn. Choose position (0-8):")
                 action = -1
                 while action not in legal_actions:
                     try:
                         action = int(input())
                         if action not in legal_actions:
-                            print("Invalid move. Choose again.")
+                            print("Invalid move. Position already taken. Choose again.")
                     except ValueError:
-                        print("Invalid input. Enter a number between 0 and 80.")
+                        print("Invalid input. Please enter a number between 0 and 8.")
                 next_state, reward, done = game.step(action)
             else:
                 # Agent's turn
-                legal_actions = legal_actions = [i for i in range(9) if game.board[i] == 0]
+                legal_actions = [i for i in range(9) if game.board[i] == 0]
                 action = agent.act(state, legal_actions)
                 next_state, reward, done = game.step(action)
                 print(f"Agent ('{agent_marker}') chooses position {action}.")
