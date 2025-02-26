@@ -1,5 +1,5 @@
 from agent import QAgent
-from game import UltimateTicTacToe
+from game import TicTacToe
 import time
 
 def train():
